@@ -1,4 +1,16 @@
-return aa; = {cache={},load=function(b)
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
+
+]]--
+
+local a;
+a = {cache={},load=function(b)
 	if not a.cache[b] then
 		a.cache[b] = {c=a[b]()};
 	end
@@ -2139,7 +2151,7 @@ do
 			end
 
 			f.SetBackgroundImage = function(A, B)
-				local asset = GetGitImage(B, "BackgroundImage")
+				local asset = GetGitImage(B, A)
 				if asset then
 					f.UIElements.Main.Background.ImageLabel.Image = asset;
 				end
