@@ -1,6 +1,4 @@
--- ORIGINAL BY FTGS
-local a;
-a = {cache={},load=function(b)
+return aa; = {cache={},load=function(b)
 	if not a.cache[b] then
 		a.cache[b] = {c=a[b]()};
 	end
@@ -2113,27 +2111,38 @@ do
 				f.ToggleKey = B;
 			end;
 			function GetGitImage(GithubImg, ImageName)
+				local decodedUrl = GithubImg:lower():gsub("%%20", " ")
 				local extensions = {".png", ".jpg", ".jpeg"}
 				local fileName
 
 				for _, ext in ipairs(extensions) do
-					if string.match(GithubImg:lower(), ext) then
+					if decodedUrl:sub(-#ext) == ext then
 						fileName = ImageName .. ext
 						break
 					end
 				end
 
-				if not fileName then return end
+				if not fileName then return nil end
 
 				if not isfile(fileName) then
-					writefile(fileName, game:HttpGet(GithubImg))
+					local success, result = pcall(function()
+						return game:HttpGet(GithubImg)
+					end)
+					if success and result then
+						writefile(fileName, result)
+					else
+						return nil
+					end
 				end
 
 				return (getsynasset or getcustomasset)(fileName)
 			end
 
 			f.SetBackgroundImage = function(A, B)
-				f.UIElements.Main.Background.ImageLabel.Image = B;
+				local asset = GetGitImage(B, "BackgroundImage")
+				if asset then
+					f.UIElements.Main.Background.ImageLabel.Image = asset;
+				end
 			end;
 			f.SetBackgroundImageTransparency = function(A, B)
 				f.UIElements.Main.Background.ImageLabel.ImageTransparency = B;
